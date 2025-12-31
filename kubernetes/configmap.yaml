@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ftex-config
+  namespace: ftex
+  labels:
+    app.kubernetes.io/name: ftex
+data:
+  # Application Settings
+  APP_NAME: "FTex Decision Intelligence Platform"
+  ENVIRONMENT: "production"
+  LOG_LEVEL: "INFO"
+  
+  # Database
+  POSTGRES_HOST: "postgres-service"
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: "ftex_db"
+  
+  # Redis
+  REDIS_HOST: "redis-service"
+  REDIS_PORT: "6379"
+  
+  # OpenSearch
+  OPENSEARCH_HOST: "opensearch-service"
+  OPENSEARCH_PORT: "9200"
+  OPENSEARCH_INDEX_PREFIX: "ftex"
+  
+  # Neo4j
+  NEO4J_HOST: "neo4j-service"
+  NEO4J_PORT: "7687"
+  
+  # Kafka
+  KAFKA_BOOTSTRAP_SERVERS: "kafka-service:9092"
+  KAFKA_GROUP_ID: "ftex-consumers"
+  
+  # Spark
+  SPARK_MASTER: "spark://spark-master:7077"
+  SPARK_APP_NAME: "FTex"
+
