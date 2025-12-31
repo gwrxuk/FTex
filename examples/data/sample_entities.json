@@ -1,0 +1,109 @@
+[
+  {
+    "id": "ENT-001",
+    "source_system": "crm",
+    "entity_type": "individual",
+    "attributes": {
+      "name": "John Michael Smith",
+      "date_of_birth": "1985-03-15",
+      "nationality": "US",
+      "email": "john.smith@email.com",
+      "phone": "+65 9123 4567"
+    }
+  },
+  {
+    "id": "ENT-002",
+    "source_system": "kyc_system",
+    "entity_type": "individual",
+    "attributes": {
+      "name": "SMITH, John M.",
+      "date_of_birth": "1985-03-15",
+      "national_id": "S1234567A",
+      "occupation": "Software Engineer"
+    }
+  },
+  {
+    "id": "ENT-003",
+    "source_system": "core_banking",
+    "entity_type": "individual",
+    "attributes": {
+      "name": "Jon Smith",
+      "date_of_birth": "1985-03-15",
+      "account_number": "1234-5678-9012"
+    }
+  },
+  {
+    "id": "ENT-004",
+    "source_system": "crm",
+    "entity_type": "individual",
+    "attributes": {
+      "name": "Jane Elizabeth Doe",
+      "date_of_birth": "1990-07-22",
+      "email": "jane.doe@company.com"
+    }
+  },
+  {
+    "id": "ENT-005",
+    "source_system": "kyc_system",
+    "entity_type": "individual",
+    "attributes": {
+      "name": "J. Doe",
+      "date_of_birth": "1990-07-22",
+      "phone": "+65 8765 4321"
+    }
+  },
+  {
+    "id": "ENT-006",
+    "source_system": "crm",
+    "entity_type": "organization",
+    "attributes": {
+      "name": "Acme Trading Corporation",
+      "registration_number": "201912345A",
+      "country": "SG",
+      "industry": "Trading"
+    }
+  },
+  {
+    "id": "ENT-007",
+    "source_system": "trade_system",
+    "entity_type": "organization",
+    "attributes": {
+      "name": "ACME Trading Corp",
+      "registration_number": "201912345A",
+      "address": "123 Shenton Way, Singapore"
+    }
+  },
+  {
+    "id": "ENT-008",
+    "source_system": "kyc_system",
+    "entity_type": "individual",
+    "attributes": {
+      "name": "Mohamed Abdullah Al-Rashid",
+      "date_of_birth": "1978-05-20",
+      "nationality": "SA",
+      "occupation": "Business Owner"
+    }
+  },
+  {
+    "id": "ENT-009",
+    "source_system": "crm",
+    "entity_type": "individual",
+    "attributes": {
+      "name": "Mohammed Bin Abdallah Al Rasheed",
+      "date_of_birth": "1978-05-20",
+      "email": "m.alrasheed@company.sa"
+    }
+  },
+  {
+    "id": "ENT-010",
+    "source_system": "core_banking",
+    "entity_type": "organization",
+    "attributes": {
+      "name": "Global Investments Limited",
+      "registration_number": "KY-54321",
+      "country": "KY",
+      "industry": "Investment"
+    }
+  }
+]
+

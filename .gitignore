@@ -72,6 +72,7 @@ derby.log
 *.parquet
 *.csv
 data/
+!examples/data/
 
 # Jupyter
 .ipynb_checkpoints/

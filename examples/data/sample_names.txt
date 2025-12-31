@@ -1,0 +1,29 @@
+# Sample names for screening tests
+# Format: Name | Expected Result
+
+# Clear names (should have no matches)
+John Smith | Clear
+Alice Johnson | Clear
+Bob Williams | Clear
+Sarah Chen | Clear
+
+# Potential sanctions matches (simulated)
+Kim Jong Un | Sanctions - DPRK
+Vladimir Putin | Sanctions - Russia, PEP - Head of State
+Bank of Iran | Sanctions - Iran
+
+# Potential PEP matches
+Minister Lee Hsien Loong | PEP - Singapore PM
+Senator Johnson | PEP - Potential
+Governor Maria Santos | PEP - Potential
+
+# Transliteration tests
+Mohamed Abdullah Al-Rashid | Test fuzzy matching
+Mohammed Bin Abdallah Al Rasheed | Should match above
+محمد عبدالله الراشد | Arabic script test
+
+# Organization names
+Acme Trading Corporation | Clear
+Global Investments Ltd | Review - Tax haven jurisdiction
+Eastern Bank Corp | Clear
+
