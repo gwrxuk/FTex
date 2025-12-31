@@ -127,7 +127,7 @@ Complete proposal lifecycle management for presales activities:
 1. **Clone the repository**
    ```bash
    cd /path/to/your/projects
-   git clone <repository-url> quantex
+   git clone <repository-url> ftex
    cd ftex
    ```
 
