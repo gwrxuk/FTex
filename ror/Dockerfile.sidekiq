@@ -1,0 +1,45 @@
+# syntax=docker/dockerfile:1
+# Optimized Sidekiq-specific Dockerfile
+FROM ruby:3.3.0-slim-bookworm
+
+# Install system dependencies
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y \
+    build-essential \
+    libpq-dev \
+    git \
+    curl \
+    pkg-config \
+    && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
+
+# Set working directory
+WORKDIR /app
+
+# Set environment variables
+ENV RAILS_ENV=production \
+    BUNDLE_WITHOUT="development test" \
+    BUNDLE_DEPLOYMENT="1" \
+    BUNDLE_PATH="/usr/local/bundle" \
+    RAILS_LOG_TO_STDOUT="1" \
+    LANG=C.UTF-8 \
+    MALLOC_ARENA_MAX=2
+
+# Install gems
+COPY Gemfile Gemfile.lock ./
+RUN bundle install && \
+    rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git
+
+# Copy application code
+COPY . .
+
+# Create log directory
+RUN mkdir -p log tmp/pids
+
+# Run as non-root user
+RUN useradd -m -u 1000 sidekiq && \
+    chown -R sidekiq:sidekiq /app
+USER sidekiq
+
+# Default: run Sidekiq
+CMD ["bundle", "exec", "sidekiq", "-C", "config/sidekiq.yml"]
+

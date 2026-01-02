@@ -1,0 +1,40 @@
+# Ruby/Rails
+*.gem
+*.rbc
+/.bundle
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# Bundler
+/vendor/bundle
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Database
+/db/*.sqlite3
+/db/*.sqlite3-*
+
+# Rails credentials
+/config/master.key
+/config/credentials/*.key
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+
+# Coverage
+/coverage/
+
+# Bootsnap
+/tmp/cache/bootsnap*
+

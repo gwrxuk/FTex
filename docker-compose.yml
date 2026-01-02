@@ -281,6 +281,84 @@ services:
       - ftex-network
     restart: unless-stopped
 
+  # ===========================================
+  # RUBY ON RAILS + SIDEKIQ - Background Jobs
+  # ===========================================
+  ftex-sidekiq:
+    build:
+      context: ./ror
+      dockerfile: Dockerfile
+    container_name: ftex-sidekiq
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    environment:
+      - RAILS_ENV=production
+      - REDIS_URL=redis://redis:6379/1
+      - DATABASE_HOST=postgres
+      - DATABASE_USER=ftex
+      - DATABASE_PASSWORD=ftex_secret
+      - DATABASE_NAME=ftex_db
+      - FTEX_API_URL=http://backend:8000
+      - NEO4J_URI=bolt://neo4j:7687
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=ftex_secret
+      - OPENSEARCH_URL=http://opensearch:9200
+      - KAFKA_BROKERS=kafka:9092
+      - RAILS_LOG_TO_STDOUT=1
+      - SECRET_KEY_BASE=ftex_sidekiq_secret_key_base_change_in_production
+    depends_on:
+      - redis
+      - postgres
+      - backend
+    volumes:
+      - ./ror:/app
+      - shared-data:/data
+    networks:
+      - ftex-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "ps aux | grep -v grep | grep sidekiq || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  ftex-worker-api:
+    build:
+      context: ./ror
+      dockerfile: Dockerfile
+    container_name: ftex-worker-api
+    command: bundle exec puma -C config/puma.rb
+    environment:
+      - RAILS_ENV=production
+      - REDIS_URL=redis://redis:6379/1
+      - DATABASE_HOST=postgres
+      - DATABASE_USER=ftex
+      - DATABASE_PASSWORD=ftex_secret
+      - DATABASE_NAME=ftex_db
+      - FTEX_API_URL=http://backend:8000
+      - NEO4J_URI=bolt://neo4j:7687
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=ftex_secret
+      - OPENSEARCH_URL=http://opensearch:9200
+      - RAILS_LOG_TO_STDOUT=1
+      - SECRET_KEY_BASE=ftex_worker_api_secret_key_base_change_in_production
+      - PORT=3001
+    ports:
+      - "3001:3001"
+    depends_on:
+      - redis
+      - postgres
+      - ftex-sidekiq
+    volumes:
+      - ./ror:/app
+    networks:
+      - ftex-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3001/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
 # ===========================================
 # NETWORKS
 # ===========================================
