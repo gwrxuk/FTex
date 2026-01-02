@@ -1,0 +1,58 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+ruby '3.3.0'
+
+# Rails core
+gem 'rails', '~> 7.1.2'
+gem 'pg', '~> 1.5'
+gem 'puma', '~> 6.4'
+
+# Background job processing with Sidekiq
+gem 'sidekiq', '~> 7.2'
+gem 'sidekiq-scheduler', '~> 5.0'
+gem 'sidekiq-cron', '~> 1.12'
+gem 'redis', '~> 5.0'
+
+# API and HTTP clients
+gem 'faraday', '~> 2.7'
+gem 'faraday-retry', '~> 2.2'
+gem 'oj', '~> 3.16'  # Fast JSON parsing
+
+# Neo4j for graph operations
+gem 'neo4j-ruby-driver', '~> 4.4'
+
+# Elasticsearch/OpenSearch
+gem 'opensearch-ruby', '~> 3.0'
+
+# Kafka for streaming
+gem 'ruby-kafka', '~> 1.5'
+
+# Monitoring and observability
+gem 'sentry-ruby', '~> 5.14'
+gem 'sentry-sidekiq', '~> 5.14'
+gem 'prometheus-client', '~> 4.2'
+
+# Configuration
+gem 'dotenv-rails', '~> 2.8'
+
+# Utilities
+gem 'activesupport', '~> 7.1'
+gem 'connection_pool', '~> 2.4'
+
+group :development, :test do
+  gem 'rspec-rails', '~> 6.1'
+  gem 'factory_bot_rails', '~> 6.4'
+  gem 'faker', '~> 3.2'
+  gem 'pry-rails', '~> 0.3'
+  gem 'rubocop', '~> 1.59', require: false
+  gem 'rubocop-rails', '~> 2.23', require: false
+end
+
+group :test do
+  gem 'rspec-sidekiq', '~> 4.1'
+  gem 'webmock', '~> 3.19'
+  gem 'vcr', '~> 6.2'
+end
+

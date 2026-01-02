@@ -1,0 +1,61 @@
+# Sidekiq Configuration for FTex Background Processing
+# =====================================================
+
+# Production settings
+:concurrency: 10
+
+# Queues with priority (lower number = higher priority)
+:queues:
+  - [critical, 6]           # Urgent processing (alerts, security events)
+  - [entity_resolution, 5]  # Entity resolution jobs
+  - [network_analysis, 4]   # Network/graph generation
+  - [scoring, 4]            # Risk scoring calculations
+  - [batch, 3]              # Batch processing jobs
+  - [default, 2]            # Default queue
+  - [low, 1]                # Low priority background tasks
+
+# Logging
+:verbose: false
+:logfile: ./log/sidekiq.log
+
+# Scheduled jobs (using sidekiq-scheduler)
+:scheduler:
+  :enabled: true
+  :listened_queues_only: false
+
+:schedule:
+  # Periodic entity resolution sync
+  entity_resolution_sync:
+    cron: '0 * * * *'  # Every hour
+    class: Ftex::EntityResolutionSyncWorker
+    queue: entity_resolution
+    description: "Sync and resolve new entities across data sources"
+
+  # Network analysis refresh
+  network_analysis_refresh:
+    cron: '0 */4 * * *'  # Every 4 hours
+    class: Ftex::NetworkAnalysisWorker
+    queue: network_analysis
+    description: "Refresh network metrics and detect new relationships"
+
+  # Risk score recalculation
+  risk_score_recalculation:
+    cron: '30 * * * *'  # Every hour at :30
+    class: Ftex::BatchScoringWorker
+    queue: scoring
+    description: "Recalculate risk scores for entities with new data"
+
+  # Watchlist sync
+  watchlist_sync:
+    cron: '0 2 * * *'  # Daily at 2 AM
+    class: Ftex::WatchlistSyncWorker
+    queue: critical
+    description: "Sync sanctions and PEP watchlists"
+
+  # Cleanup old jobs
+  cleanup_old_data:
+    cron: '0 3 * * 0'  # Weekly on Sunday at 3 AM
+    class: Ftex::CleanupWorker
+    queue: low
+    description: "Clean up old processing records"
+

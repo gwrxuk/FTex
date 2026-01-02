@@ -1,0 +1,23 @@
+# PostgreSQL configuration for FTex Worker
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+  host: <%= ENV.fetch('DATABASE_HOST', 'postgres') %>
+  username: <%= ENV.fetch('DATABASE_USER', 'ftex') %>
+  password: <%= ENV.fetch('DATABASE_PASSWORD', 'ftex_secret') %>
+
+development:
+  <<: *default
+  database: ftex_db_development
+
+test:
+  <<: *default
+  database: ftex_db_test
+
+production:
+  <<: *default
+  database: <%= ENV.fetch('DATABASE_NAME', 'ftex_db') %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 10 } %>
+
